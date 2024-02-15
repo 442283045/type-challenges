@@ -11,4 +11,17 @@ type cases = [
   Expect<Equal<ParsePrintFormat<'The result is %q.'>, []>>,
   Expect<Equal<ParsePrintFormat<'Hello %s: score is %d.'>, ['string', 'dec']>>,
   Expect<Equal<ParsePrintFormat<'The result is %'>, []>>,
+  Expect<Equal<FirstLetter<'Hello'>, 'H'>>,
+  Expect<Equal<RestLetters<'Hello'>, 'ello'>>
 ]
+
+type FirstLetter<S extends string> = S extends ''
+  ? ''
+  : S extends `${infer F}${infer _Rest}`
+  ? F
+  : ''
+type RestLetters<S extends string> = S extends ''
+  ? ''
+  : S extends `${infer _F}${infer Rest}`
+  ? Rest
+  : ''
